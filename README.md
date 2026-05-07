@@ -36,3 +36,22 @@ Started Weather App with React and Vite.
 - Fetch real weather data from API
 - Display temperature and weather info
 - Add loading and error states
+
+# Coding Session 37
+
+## Features
+
+- Connected real weather API
+- Added weather search by city
+- Displayed temperature and weather description
+- Added error handling
+- Added Enter key support for search
+
+## Practice
+
+- fetch()
+- async / await
+- API requests
+- JSON data
+- conditional rendering
+- keyboard events

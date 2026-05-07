@@ -66,3 +66,24 @@ h2 {
   margin-top: 24px;
   color: #111827;
 }
+
+.weather-result {
+  margin-top: 24px;
+}
+
+.weather-result h2 {
+  margin-bottom: 10px;
+  color: #111827;
+}
+.weather-result p {
+  margin-top: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.error {
+  margin-top: 20px;
+  color: #dc2626;
+  font-weight: 700;
+}
