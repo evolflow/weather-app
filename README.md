@@ -55,3 +55,33 @@ Started Weather App with React and Vite.
 - JSON data
 - conditional rendering
 - keyboard events
+
+# Coding Session 38
+
+Continued building the Weather App.
+
+## Features
+
+- Added loading state
+- Added artificial loading delay for learning
+- Added dynamic weather icons
+- Added humidity information
+- Added wind speed information
+- Improved weather result card UI
+
+## Practice
+
+- useState
+- conditional rendering
+- loading state
+- API data structure
+- nested objects
+- JSX layout structure
+
+## What I learned
+
+- How to show Loading... while waiting for API data
+- Why loading must be turned off after success or error
+- How to read nested API data like weather.main.humidity
+- How to read weather.wind.speed from API response
+- Why JSX tags must be closed correctly
