@@ -85,3 +85,49 @@ Continued building the Weather App.
 - How to read nested API data like weather.main.humidity
 - How to read weather.wind.speed from API response
 - Why JSX tags must be closed correctly
+
+# Coding Session 39
+
+Continued improving the Weather App.
+
+## Features
+
+- Added country code next to city name
+- Added feels like temperature
+- Added third weather detail card
+- Added sunrise time
+- Added sunset time
+- Improved weather result layout
+- Improved mobile responsive layout
+- Fixed JSX structure issues with nested divs
+
+## Practice
+
+- React conditional rendering
+- JSX nesting
+- API data structure
+- nested objects
+- Unix timestamp conversion
+- JavaScript Date object
+- toLocaleTimeString()
+- CSS grid
+- responsive design
+
+## What I learned
+
+- How to display country from weather.sys.country
+- How to display feels like temperature from weather.main.feels_like
+- How to read sunrise and sunset from weather.sys.sunrise and weather.sys.sunset
+- Why API time sometimes comes as Unix timestamp
+- How to convert Unix timestamp into readable time using new Date()
+- Why every JSX tag must be closed correctly
+- How to avoid putting one card accidentally inside another card
+- How to use CSS grid for multiple detail boxes
+- How to make layout better on mobile screens
+
+## Next
+
+- Add search history
+- Add localStorage for last searched city
+- Add better weather icons for more conditions
+- Add background changes based on weather

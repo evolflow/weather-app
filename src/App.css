@@ -108,7 +108,7 @@ h2 {
 }
 
 .weather-result h1 {
-  font-size: 48px;
+  font-size: 38px;
   margin: 10px 0;
 }
 
@@ -119,7 +119,8 @@ h2 {
 }
 
 .details {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   margin-top: 20px;
 }
@@ -145,4 +146,19 @@ h2 {
   display: block;
   margin-top: 6px;
   color: #111827;
+}
+
+@media (max-width: 480px) {
+  .weather-card {
+    margin: 16px;
+    padding: 24px;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .details {
+    grid-template-columns: 1fr;
+  }
 }

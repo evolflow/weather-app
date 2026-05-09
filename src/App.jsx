@@ -19,24 +19,31 @@ function App() {
     setWeather(null);
 
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    const response = await fetch(url);
-    const data = await response.json();
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
 
-    console.log(data);
+      console.log(data);
 
-    if (data.cod !== 200) {
-      setError(data.message);
+      if (data.cod !== 200) {
+        setError(data.message);
+        setWeather(null);
+        setLoading(false);
+        return;
+      }
+
+      setWeather(data);
+      setError("");
+    } catch (error) {
+      setError("Something went wrong");
       setWeather(null);
-      setLoading(false);
-      return;
     }
 
-    setWeather(data);
-    setError("");
     setLoading(false);
   }
 
@@ -67,35 +74,80 @@ function App() {
 
         {loading && <p className="loading">Loading...</p>}
 
-        {weather && weather.main && weather.weather && weather.wind && (
-          <div className="weather-result">
-            <h2>{weather.name}</h2>
+        {weather &&
+          weather.main &&
+          weather.weather &&
+          weather.wind &&
+          weather.sys && (
+            <div className="weather-result">
+              <h2>
+                {weather.name}, {weather.sys.country}
+              </h2>
 
-            <h1>
-              {weather.weather[0].main === "Clear" && "☀️"}
-              {weather.weather[0].main === "Clouds" && "☁️"}
-              {weather.weather[0].main === "Rain" && "🌧"}
-              {weather.weather[0].main === "Snow" && "❄️"}
-            </h1>
+              <h1>
+                {weather.weather[0].main === "Clear" && "☀️"}
+                {weather.weather[0].main === "Clouds" && "☁️"}
+                {weather.weather[0].main === "Rain" && "🌧"}
+                {weather.weather[0].main === "Snow" && "❄️"}
+              </h1>
 
-            <p>{Math.round(weather.main.temp)}°C</p>
-            <p>{weather.weather[0].description}</p>
+              <p>{Math.round(weather.main.temp)}°C</p>
 
-            <div className="details">
-              <div className="detail-box">
-                <span>💧</span>
-                <p>Humidity</p>
-                <strong>{weather.main.humidity}%</strong>
+              <p>Feels like: {Math.round(weather.main.feels_like)}°C</p>
+
+              <p>{weather.weather[0].description}</p>
+
+              <div className="details">
+                <div className="detail-box">
+                  <span>💧</span>
+                  <p>Humidity</p>
+                  <strong>{weather.main.humidity}%</strong>
+                </div>
+
+                <div className="detail-box">
+                  <span>🌬</span>
+                  <p>Wind</p>
+                  <strong>{weather.wind.speed} m/s</strong>
+                </div>
+
+                <div className="detail-box">
+                  <span>🌡</span>
+                  <p>Feels like</p>
+                  <strong>{Math.round(weather.main.feels_like)}°C</strong>
+                </div>
               </div>
 
-              <div className="detail-box">
-                <span>🌬</span>
-                <p>Wind</p>
-                <strong>{weather.wind.speed} m/s</strong>
+              <div className="sun-times">
+                <div className="sun-box">
+                  <p>🌅 Sunrise</p>
+
+                  <strong>
+                    {new Date(weather.sys.sunrise * 1000).toLocaleTimeString(
+                      [],
+                      {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      },
+                    )}
+                  </strong>
+                </div>
+
+                <div className="sun-box">
+                  <p>🌇 Sunset</p>
+
+                  <strong>
+                    {new Date(weather.sys.sunset * 1000).toLocaleTimeString(
+                      [],
+                      {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      },
+                    )}
+                  </strong>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
     </div>
   );
