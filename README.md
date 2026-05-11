@@ -131,3 +131,47 @@ Continued improving the Weather App.
 - Add localStorage for last searched city
 - Add better weather icons for more conditions
 - Add background changes based on weather
+
+# Coding Session 40
+
+Continued improving the Weather App with search history functionality.
+
+## Features
+
+- Added search history state
+- Added dynamic history buttons
+- Added search from history buttons
+- Added automatic weather fetch from history
+- Improved app interactivity
+- Improved user experience
+
+## Practice
+
+- arrays
+- map()
+- React state updates
+- spread operator
+- async functions
+- function parameters
+- dynamic rendering
+- event handling
+- API requests
+
+## What I learned
+
+- How to store cities inside an array state
+- How map() creates dynamic UI elements
+- What item and index mean inside map()
+- How spread operator works with arrays
+- How to create reusable async functions
+- Why React state updates are not instant
+- Why passing cityName directly is safer than relying on state
+- How buttons can trigger API requests
+- How React re-renders UI from updated state
+
+## Next
+
+- Prevent duplicate cities in history
+- Add localStorage for history
+- Add clear history button
+- Add weather background changes
