@@ -6,6 +6,7 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [history, setHistory] = useState([]);
 
   async function getWeather() {
     if (city.trim() === "") {
@@ -29,6 +30,39 @@ function App() {
       const data = await response.json();
 
       console.log(data);
+
+      if (data.cod !== 200) {
+        setError(data.message);
+        setWeather(null);
+        setLoading(false);
+        return;
+      }
+
+      setWeather(data);
+      setHistory((prevHistory) => [data.name, ...prevHistory]);
+      setError("");
+    } catch (error) {
+      setError("Something went wrong");
+      setWeather(null);
+    }
+
+    setLoading(false);
+  }
+
+  async function searchFromHistory(cityName) {
+    setCity(cityName);
+
+    setLoading(true);
+    setError("");
+    setWeather(null);
+
+    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
 
       if (data.cod !== 200) {
         setError(data.message);
@@ -68,6 +102,19 @@ function App() {
           />
 
           <button onClick={getWeather}>Search</button>
+        </div>
+
+        <div className="history">
+          {history.map((item, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                searchFromHistory(item);
+              }}
+            >
+              {item}
+            </button>
+          ))}
         </div>
 
         {error && <p className="error">{error}</p>}
