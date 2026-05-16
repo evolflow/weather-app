@@ -175,3 +175,36 @@ Continued improving the Weather App with search history functionality.
 - Add localStorage for history
 - Add clear history button
 - Add weather background changes
+
+# Coding Session 41
+
+Improved Weather App history system.
+
+## Features
+
+- Added Clear History button
+- Added conditional rendering for Clear button
+- Added history reset with setHistory([])
+- Improved history UI
+- Fixed CSS visibility issue
+
+## Practice
+
+- conditional rendering
+- history.length
+- array reset
+- React state updates
+- CSS debugging
+
+## What I learned
+
+- How to show elements only when conditions are true
+- How setHistory([]) clears array state
+- How React re-renders after state updates
+- How to debug React vs CSS issues
+
+## Next
+
+- Prevent duplicate history cities
+- Add localStorage
+- Save last searched city

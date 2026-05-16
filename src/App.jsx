@@ -8,20 +8,20 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
 
-  async function getWeather() {
-    if (city.trim() === "") {
+  async function fetchWeather(cityName, addToHistory = true) {
+    if (cityName.trim() === "") {
       setError("Please enter a city");
       setWeather(null);
       return;
     }
 
+    setCity(cityName);
     setLoading(true);
     setError("");
     setWeather(null);
 
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
@@ -29,56 +29,31 @@ function App() {
       const response = await fetch(url);
       const data = await response.json();
 
-      console.log(data);
-
       if (data.cod !== 200) {
         setError(data.message);
         setWeather(null);
-        setLoading(false);
         return;
       }
 
       setWeather(data);
-      setHistory((prevHistory) => [data.name, ...prevHistory]);
-      setError("");
+
+      if (addToHistory) {
+        setHistory((prevHistory) => [data.name, ...prevHistory]);
+      }
     } catch (error) {
       setError("Something went wrong");
       setWeather(null);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
-  async function searchFromHistory(cityName) {
-    setCity(cityName);
+  function getWeather() {
+    fetchWeather(city, true);
+  }
 
-    setLoading(true);
-    setError("");
-    setWeather(null);
-
-    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      if (data.cod !== 200) {
-        setError(data.message);
-        setWeather(null);
-        setLoading(false);
-        return;
-      }
-
-      setWeather(data);
-      setError("");
-    } catch (error) {
-      setError("Something went wrong");
-      setWeather(null);
-    }
-
-    setLoading(false);
+  function searchFromHistory(cityName) {
+    fetchWeather(cityName, false);
   }
 
   return (
@@ -104,6 +79,16 @@ function App() {
           <button onClick={getWeather}>Search</button>
         </div>
 
+        {history.length > 0 && (
+          <button
+            className="clear-btn"
+            onClick={() => {
+              setHistory([]);
+            }}
+          >
+            Clear History
+          </button>
+        )}
         <div className="history">
           {history.map((item, index) => (
             <button
@@ -139,9 +124,7 @@ function App() {
               </h1>
 
               <p>{Math.round(weather.main.temp)}°C</p>
-
               <p>Feels like: {Math.round(weather.main.feels_like)}°C</p>
-
               <p>{weather.weather[0].description}</p>
 
               <div className="details">
@@ -167,7 +150,6 @@ function App() {
               <div className="sun-times">
                 <div className="sun-box">
                   <p>🌅 Sunrise</p>
-
                   <strong>
                     {new Date(weather.sys.sunrise * 1000).toLocaleTimeString(
                       [],
@@ -181,7 +163,6 @@ function App() {
 
                 <div className="sun-box">
                   <p>🌇 Sunset</p>
-
                   <strong>
                     {new Date(weather.sys.sunset * 1000).toLocaleTimeString(
                       [],
