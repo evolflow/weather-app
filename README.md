@@ -208,3 +208,39 @@ Improved Weather App history system.
 - Prevent duplicate history cities
 - Add localStorage
 - Save last searched city
+
+# Coding Session 43
+
+Improved Weather App with extra weather details and history limits.
+
+## Features
+
+- Added more weather condition icons
+- Added pressure information
+- Limited search history to 5 cities
+- Improved weather details section
+- Improved project as a second portfolio app
+
+## Practice
+
+- conditional rendering
+- API data structure
+- nested objects
+- array slice()
+- weather condition logic
+- React state updates
+
+## What I learned
+
+- How to show different icons based on weather condition
+- How to read pressure from weather.main.pressure
+- How to limit an array with slice(0, 5)
+- How to keep UI cleaner by limiting history items
+- How to improve a React app step by step
+
+## Next
+
+- Add favorite cities
+- Save favorites to localStorage
+- Improve final README
+- Deploy project

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -7,6 +7,40 @@ function App() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const savedHistory = localStorage.getItem("weatherHistory");
+    const savedWeather = localStorage.getItem("weatherData");
+    const savedCity = localStorage.getItem("weatherCity");
+
+    if (savedHistory) {
+      setHistory(JSON.parse(savedHistory));
+    }
+
+    if (savedWeather) {
+      setWeather(JSON.parse(savedWeather));
+    }
+
+    if (savedCity) {
+      setCity(savedCity);
+    }
+
+    setLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (loaded) {
+      localStorage.setItem("weatherHistory", JSON.stringify(history));
+    }
+  }, [history, loaded]);
+
+  useEffect(() => {
+    if (loaded && weather) {
+      localStorage.setItem("weatherData", JSON.stringify(weather));
+      localStorage.setItem("weatherCity", weather.name);
+    }
+  }, [weather, loaded]);
 
   async function fetchWeather(cityName, addToHistory = true) {
     if (cityName.trim() === "") {
@@ -38,8 +72,16 @@ function App() {
       setWeather(data);
 
       if (addToHistory) {
-        setHistory((prevHistory) => [data.name, ...prevHistory]);
+        setHistory((prevHistory) => {
+          const filteredHistory = prevHistory.filter(
+            (item) => item !== data.name,
+          );
+
+          return [data.name, ...filteredHistory].slice(0, 5);
+        });
       }
+
+      setError("");
     } catch (error) {
       setError("Something went wrong");
       setWeather(null);
@@ -84,11 +126,13 @@ function App() {
             className="clear-btn"
             onClick={() => {
               setHistory([]);
+              localStorage.removeItem("weatherHistory");
             }}
           >
             Clear History
           </button>
         )}
+
         <div className="history">
           {history.map((item, index) => (
             <button
@@ -121,6 +165,11 @@ function App() {
                 {weather.weather[0].main === "Clouds" && "☁️"}
                 {weather.weather[0].main === "Rain" && "🌧"}
                 {weather.weather[0].main === "Snow" && "❄️"}
+                {weather.weather[0].main === "Thunderstorm" && "⛈"}
+                {weather.weather[0].main === "Drizzle" && "🌦"}
+                {weather.weather[0].main === "Mist" && "🌫"}
+                {weather.weather[0].main === "Fog" && "🌁"}
+                {weather.weather[0].main === "Haze" && "🌫"}
               </h1>
 
               <p>{Math.round(weather.main.temp)}°C</p>
@@ -144,6 +193,12 @@ function App() {
                   <span>🌡</span>
                   <p>Feels like</p>
                   <strong>{Math.round(weather.main.feels_like)}°C</strong>
+                </div>
+
+                <div className="detail-box">
+                  <span>📊</span>
+                  <p>Pressure</p>
+                  <strong>{weather.main.pressure} hPa</strong>
                 </div>
               </div>
 
