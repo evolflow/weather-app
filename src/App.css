@@ -198,3 +198,24 @@ h2 {
 .clear-btn:hover {
   background: #b91c1c;
 }
+
+.favorite-btn {
+  display: block;
+  margin: 16px auto;
+  border: none;
+  background: #f59e0b;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.favorite-btn:hover {
+  background: #d97706;
+}
+
+h3 {
+  margin-top: 18px;
+  color: #111827;
+}

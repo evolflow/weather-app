@@ -244,3 +244,44 @@ Improved Weather App with extra weather details and history limits.
 - Save favorites to localStorage
 - Improve final README
 - Deploy project
+
+# Coding Session 44
+
+Continued improving the Weather App.
+
+## Features
+
+- Added Favorites system
+- Added Pressure information
+- Added more weather icons
+- Limited history to 5 cities
+- Improved localStorage usage
+- Continued React state practice
+
+## Practice
+
+- useState
+- useEffect
+- localStorage
+- includes()
+- filter()
+- map()
+- slice()
+- conditional rendering
+- API data handling
+
+## What I learned
+
+- How to save and load data from localStorage
+- How to add and remove items from an array
+- How includes() checks if a value exists
+- How filter() removes items from an array
+- How slice() limits array size
+- How React updates UI when state changes
+
+## Next
+
+- Review project from the beginning
+- Create Anki cards
+- Better understand React logic
+- Improve Favorites system

@@ -7,24 +7,19 @@ function App() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const savedHistory = localStorage.getItem("weatherHistory");
     const savedWeather = localStorage.getItem("weatherData");
     const savedCity = localStorage.getItem("weatherCity");
+    const savedFavorites = localStorage.getItem("weatherFavorites");
 
-    if (savedHistory) {
-      setHistory(JSON.parse(savedHistory));
-    }
-
-    if (savedWeather) {
-      setWeather(JSON.parse(savedWeather));
-    }
-
-    if (savedCity) {
-      setCity(savedCity);
-    }
+    if (savedHistory) setHistory(JSON.parse(savedHistory));
+    if (savedWeather) setWeather(JSON.parse(savedWeather));
+    if (savedCity) setCity(savedCity);
+    if (savedFavorites) setFavorites(JSON.parse(savedFavorites));
 
     setLoaded(true);
   }, []);
@@ -34,6 +29,12 @@ function App() {
       localStorage.setItem("weatherHistory", JSON.stringify(history));
     }
   }, [history, loaded]);
+
+  useEffect(() => {
+    if (loaded) {
+      localStorage.setItem("weatherFavorites", JSON.stringify(favorites));
+    }
+  }, [favorites, loaded]);
 
   useEffect(() => {
     if (loaded && weather) {
@@ -98,6 +99,18 @@ function App() {
     fetchWeather(cityName, false);
   }
 
+  function toggleFavorite() {
+    if (!weather || !weather.name) return;
+
+    setFavorites((prevFavorites) => {
+      if (prevFavorites.includes(weather.name)) {
+        return prevFavorites.filter((item) => item !== weather.name);
+      }
+
+      return [...prevFavorites, weather.name];
+    });
+  }
+
   return (
     <div className="app">
       <div className="weather-card">
@@ -145,6 +158,33 @@ function App() {
             </button>
           ))}
         </div>
+
+        {weather && weather.name && (
+          <button className="favorite-btn" onClick={toggleFavorite}>
+            {favorites.includes(weather.name)
+              ? "❌ Remove from Favorites"
+              : "⭐ Add to Favorites"}
+          </button>
+        )}
+
+        {favorites.length > 0 && (
+          <>
+            <h3>⭐ Favorites</h3>
+
+            <div className="history">
+              {favorites.map((item, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    searchFromHistory(item);
+                  }}
+                >
+                  ⭐ {item}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
 
         {error && <p className="error">{error}</p>}
 
