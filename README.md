@@ -285,3 +285,40 @@ Continued improving the Weather App.
 - Create Anki cards
 - Better understand React logic
 - Improve Favorites system
+
+# Coding Session 45
+
+Continued improving the Weather App and started cleaning up the code.
+
+## Features
+
+- Added Last Updated time
+- Added Clear All button
+- Added Favorites system
+- Saved favorites to localStorage
+- Refactored weather icons into a separate function
+
+## Practice
+
+- useState
+- useEffect
+- localStorage
+- conditional rendering
+- functions
+- array methods
+
+## What I learned
+
+- How to save favorites in localStorage
+- How to create reusable functions
+- How to use includes() and filter()
+- How to update React state
+- How to clean JSX by moving logic into functions
+
+## Next
+
+- UI polish
+- Better loading spinner
+- Final project cleanup
+- Portfolio screenshots
+- Deploy update

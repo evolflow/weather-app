@@ -6,6 +6,7 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState("");
   const [history, setHistory] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -72,6 +73,13 @@ function App() {
 
       setWeather(data);
 
+      setLastUpdated(
+        new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      );
+
       if (addToHistory) {
         setHistory((prevHistory) => {
           const filteredHistory = prevHistory.filter(
@@ -84,6 +92,7 @@ function App() {
 
       setError("");
     } catch (error) {
+      console.log(error);
       setError("Something went wrong");
       setWeather(null);
     } finally {
@@ -97,6 +106,20 @@ function App() {
 
   function searchFromHistory(cityName) {
     fetchWeather(cityName, false);
+  }
+
+  function getWeatherIcon(condition) {
+    if (condition === "Clear") return "☀️";
+    if (condition === "Clouds") return "☁️";
+    if (condition === "Rain") return "🌧";
+    if (condition === "Snow") return "❄️";
+    if (condition === "Thunderstorm") return "⛈";
+    if (condition === "Drizzle") return "🌦";
+    if (condition === "Mist") return "🌫";
+    if (condition === "Fog") return "🌁";
+    if (condition === "Haze") return "🌫";
+
+    return "🌤";
   }
 
   function toggleFavorite() {
@@ -139,10 +162,17 @@ function App() {
             className="clear-btn"
             onClick={() => {
               setHistory([]);
+              setFavorites([]);
+              setWeather(null);
+              setCity("");
+
               localStorage.removeItem("weatherHistory");
+              localStorage.removeItem("weatherFavorites");
+              localStorage.removeItem("wearherData");
+              localStorage.removeItem("weatherCity");
             }}
           >
-            Clear History
+            Clear All
           </button>
         )}
 
@@ -200,21 +230,12 @@ function App() {
                 {weather.name}, {weather.sys.country}
               </h2>
 
-              <h1>
-                {weather.weather[0].main === "Clear" && "☀️"}
-                {weather.weather[0].main === "Clouds" && "☁️"}
-                {weather.weather[0].main === "Rain" && "🌧"}
-                {weather.weather[0].main === "Snow" && "❄️"}
-                {weather.weather[0].main === "Thunderstorm" && "⛈"}
-                {weather.weather[0].main === "Drizzle" && "🌦"}
-                {weather.weather[0].main === "Mist" && "🌫"}
-                {weather.weather[0].main === "Fog" && "🌁"}
-                {weather.weather[0].main === "Haze" && "🌫"}
-              </h1>
+              <h1>{getWeatherIcon(weather.weather[0].main)}</h1>
 
               <p>{Math.round(weather.main.temp)}°C</p>
               <p>Feels like: {Math.round(weather.main.feels_like)}°C</p>
               <p>{weather.weather[0].description}</p>
+              <p>Last updated: {lastUpdated}</p>
 
               <div className="details">
                 <div className="detail-box">
