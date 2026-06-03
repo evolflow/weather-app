@@ -322,3 +322,43 @@ Continued improving the Weather App and started cleaning up the code.
 - Final project cleanup
 - Portfolio screenshots
 - Deploy update
+
+# Coding Session 46
+
+Continued improving the Weather App and focused on code quality.
+
+## Features
+
+- Added Last Updated time
+- Added Favorites system
+- Saved Favorites in localStorage
+- Added Clear All button
+- Refactored weather icon logic into a separate function
+- Improved error handling
+- Practiced debugging with browser console
+
+## Practice
+
+- Functions
+- useState
+- useEffect
+- localStorage
+- conditional rendering
+- debugging
+- reusable code
+
+## What I learned
+
+- How to create reusable functions
+- How to save and load favorites
+- How to debug React errors using Console
+- How to clean up JSX
+- How to manage multiple React states
+
+## Next
+
+- Fix loading button state
+- UI polish
+- Project screenshots
+- Final README
+- Deploy update

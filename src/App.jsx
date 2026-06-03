@@ -92,8 +92,7 @@ function App() {
 
       setError("");
     } catch (error) {
-      console.log(error);
-      setError("Something went wrong");
+      setError("Something went wrong. Please try again.");
       setWeather(null);
     } finally {
       setLoading(false);
@@ -165,10 +164,11 @@ function App() {
               setFavorites([]);
               setWeather(null);
               setCity("");
+              setLastUpdated("");
 
               localStorage.removeItem("weatherHistory");
               localStorage.removeItem("weatherFavorites");
-              localStorage.removeItem("wearherData");
+              localStorage.removeItem("weatherData");
               localStorage.removeItem("weatherCity");
             }}
           >
@@ -218,7 +218,12 @@ function App() {
 
         {error && <p className="error">{error}</p>}
 
-        {loading && <p className="loading">Loading...</p>}
+        {loading && (
+          <div className="loading-box">
+            <div className="spinner"></div>
+            <p>Searching weather...</p>
+          </div>
+        )}
 
         {weather &&
           weather.main &&
@@ -235,7 +240,7 @@ function App() {
               <p>{Math.round(weather.main.temp)}°C</p>
               <p>Feels like: {Math.round(weather.main.feels_like)}°C</p>
               <p>{weather.weather[0].description}</p>
-              <p>Last updated: {lastUpdated}</p>
+              {lastUpdated && <p>Last updated: {lastUpdated}</p>}
 
               <div className="details">
                 <div className="detail-box">

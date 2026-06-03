@@ -219,3 +219,42 @@ h3 {
   margin-top: 18px;
   color: #111827;
 }
+
+.loading-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid #dbeafe;
+  border-top: 3px solid #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loading-box p {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.search-box button:disabled {
+  background: #94a3b8;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.search-box button:disabled:hover {
+  background: #94a3b8;
+}
