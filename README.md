@@ -41,14 +41,6 @@ The project was built to practice React fundamentals, API integration, state man
 - OpenWeather API
 - LocalStorage
 
-### Desktop Version
-
-Screenshot 1
-
-### Mobile Version
-
-Screenshot 2
-
 ## 🧠 What I Learned
 
 Through this project I practiced:
