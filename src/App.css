@@ -152,14 +152,36 @@ h2 {
   .weather-card {
     margin: 16px;
     padding: 24px;
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .weather-result h1 {
+    font-size: 34px;
   }
 
   .search-box {
     flex-direction: column;
   }
 
+  .search-box input,
+  .search-box button {
+    width: 100%;
+  }
+
   .details {
     grid-template-columns: 1fr;
+  }
+
+  .history {
+    justify-content: center;
+  }
+
+  .detail-box {
+    padding: 12px;
   }
 }
 
@@ -257,4 +279,24 @@ h3 {
 
 .search-box button:disabled:hover {
   background: #94a3b8;
+}
+
+.empty-state {
+  margin-top: 30px;
+  padding: 20px;
+}
+
+.empty-state h2 {
+  font-size: 50px;
+}
+
+.empty-state p {
+  margin-top: 10px;
+  color: #6b7280;
+}
+
+.footer {
+  margin-top: 24px;
+  font-size: 14px;
+  color: #6b7280;
 }

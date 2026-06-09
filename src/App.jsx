@@ -153,7 +153,9 @@ function App() {
             }}
           />
 
-          <button onClick={getWeather}>Search</button>
+          <button onClick={getWeather} disabled={loading}>
+            {loading ? "Searching..." : "Search"}
+          </button>
         </div>
 
         {history.length > 0 && (
@@ -222,6 +224,13 @@ function App() {
           <div className="loading-box">
             <div className="spinner"></div>
             <p>Searching weather...</p>
+          </div>
+        )}
+
+        {!weather && !loading && !error && (
+          <div className="empty-state">
+            <h2>🌤</h2>
+            <p>Search for a city to see weather information</p>
           </div>
         )}
 
@@ -297,6 +306,7 @@ function App() {
               </div>
             </div>
           )}
+        <footer className="footer">Built by Volodymyr Flow 🚀</footer>
       </div>
     </div>
   );
